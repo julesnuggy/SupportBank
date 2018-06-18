@@ -3,6 +3,7 @@ package training.supportbank;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 public class DataHandler {
@@ -40,7 +41,6 @@ public class DataHandler {
         Map<String, BigDecimal> finalOutput = new LinkedHashMap<>();
         finalOutput = getValues(inputArray, setOfNames, finalOutput,"From");
         finalOutput = getValues(inputArray, setOfNames, finalOutput,"To");
-
         return finalOutput;
     }
 
@@ -68,7 +68,7 @@ public class DataHandler {
                         break;
                     }
 
-                    outputMap.put(name, totalVal);
+                    outputMap.put(name, totalVal.setScale(2, RoundingMode.HALF_UP));
                 }
             }
         }

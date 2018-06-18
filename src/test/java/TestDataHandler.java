@@ -35,7 +35,6 @@ public class TestDataHandler {
         expectedMap.put("Amount", "2.00");
         expectedArray.add(expectedMap);
 
-        expectedBalancesMap = new LinkedHashMap<>();
         expectedBalancesMap.put("John D", new BigDecimal("3.00"));
         expectedBalancesMap.put("Jane D", new BigDecimal( "-3.00"));
     }
@@ -62,6 +61,7 @@ public class TestDataHandler {
         Set<String> setOfNames = new HashSet<>();
         setOfNames.add("John D");
         setOfNames.add("Jane D");
+        setOfNames.add("No Transactions Jo");
         assertThat(dataHandler.calculateBalance(expectedArray, setOfNames)).isEqualTo(expectedBalancesMap);
     }
 }
