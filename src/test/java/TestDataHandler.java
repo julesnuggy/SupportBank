@@ -36,8 +36,8 @@ public class TestDataHandler {
         expectedArray.add(expectedMap);
 
         expectedBalancesMap = new LinkedHashMap<>();
-        expectedBalancesMap.put("John D", new BigDecimal(3.00));
-        expectedBalancesMap.put("Jane D", new BigDecimal( -3.00));
+        expectedBalancesMap.put("John D", new BigDecimal("3.00"));
+        expectedBalancesMap.put("Jane D", new BigDecimal( "-3.00"));
     }
 
     @Test
@@ -56,10 +56,12 @@ public class TestDataHandler {
         assertThat(tempSet).contains("John D", "Jane D");
     }
 
-//    @Test
-//    public void calculateBalanceReturnsTotalOwedPerPerson() {
-//        DataHandler dataHandler = new DataHandler();
-//
-//        assertThat(dataHandler.calculateBalance(expectedArray), is(expectedBalancesMap));
-//    }
+    @Test
+    public void calculateBalanceReturnsTotalOwedPerPerson() {
+        DataHandler dataHandler = new DataHandler();
+        Set<String> setOfNames = new HashSet<>();
+        setOfNames.add("John D");
+        setOfNames.add("Jane D");
+        assertThat(dataHandler.calculateBalance(expectedArray, setOfNames)).isEqualTo(expectedBalancesMap);
+    }
 }

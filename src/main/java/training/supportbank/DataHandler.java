@@ -24,25 +24,48 @@ public class DataHandler {
     }
 
     public static Set<String> extractNames(List<Map<String, String>> inputArray) {
-        String currName;
+        String fromName, toName;
         Set<String> setOfNames = new HashSet<>();
 
         for (int i = 0; i < inputArray.size(); i++) {
-            currName = inputArray.get(i).get("From");
-            setOfNames.add(currName);
+            fromName = inputArray.get(i).get("From");
+            toName = inputArray.get(i).get("To");
+            setOfNames.add(fromName);
+            setOfNames.add(toName);
         }
         return setOfNames;
     }
 
+    public static Map calculateBalance(List<Map<String, String>> inputArray, Set<String> setOfNames) {
+        Map<String, BigDecimal> outputMap = new LinkedHashMap<>();
 
-//
-//    public static Map calculateBalance(List inputArray) {
-//        Map<String, BigDecimal> outputMap = new LinkedHashMap<>();
-//
-////        for (int i=0; i<inputArray.size(); i++) {
-////            outputMap.put(inputArray[i].getKey())
-////        }
-//
-//        return outputMap;
-//    }
+        for (String name : setOfNames) {
+            for (int i = 0; i<inputArray.size(); i++) {
+                if(inputArray.get(i).get("From").equals(name)) {
+                    BigDecimal currVal;
+                    if(outputMap.get(name) != null) {
+                        currVal = outputMap.get(name);
+                    } else {
+                        currVal = new BigDecimal(0);
+                    }
+                    BigDecimal addVal = new BigDecimal(inputArray.get(i).get("Amount"));
+                    BigDecimal newVal = currVal.add(addVal);
+                    outputMap.put(name, newVal);
+                } else if(inputArray.get(i).get("To").equals(name)) {
+                    BigDecimal currVal;
+                    if(outputMap.get(name) != null) {
+                        currVal = outputMap.get(name);
+                    } else {
+                        currVal = new BigDecimal(0);
+                    }
+                    BigDecimal addVal = new BigDecimal(inputArray.get(i).get("Amount"));
+                    BigDecimal newVal = currVal.subtract(addVal);
+                    outputMap.put(name, newVal);
+                }
+
+            }
+        }
+
+        return outputMap;
+    }
 }
