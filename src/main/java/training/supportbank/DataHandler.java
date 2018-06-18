@@ -6,9 +6,9 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class DataHandler {
-    public static List dataConverter(BufferedReader reader) throws IOException {
+    public static List<Map<String, String>> dataConverter(BufferedReader reader) throws IOException {
         String transactionLine;
-        List<Map> transactionArray = new ArrayList<>();
+        List<Map<String, String>> transactionArray = new ArrayList<>();
 
         while ((transactionLine = reader.readLine()) != null) {
             Map<String, String> transactionMap = new LinkedHashMap<>();
@@ -36,36 +36,42 @@ public class DataHandler {
         return setOfNames;
     }
 
-    public static Map calculateBalance(List<Map<String, String>> inputArray, Set<String> setOfNames) {
-        Map<String, BigDecimal> outputMap = new LinkedHashMap<>();
+    public static Map<String, BigDecimal> calculateBalance(List<Map<String, String>> inputArray, Set<String> setOfNames) {
+        Map<String, BigDecimal> finalOutput = new LinkedHashMap<>();
+        finalOutput = getValues(inputArray, setOfNames, finalOutput,"From");
+        finalOutput = getValues(inputArray, setOfNames, finalOutput,"To");
+
+        return finalOutput;
+    }
+
+    private static Map<String, BigDecimal> getValues(List<Map<String, String>> inputArray, Set<String> setOfNames, Map<String, BigDecimal> outputMap, String mapKey) {
+        BigDecimal currVal, newVal, totalVal;
 
         for (String name : setOfNames) {
-            for (int i = 0; i<inputArray.size(); i++) {
-                if(inputArray.get(i).get("From").equals(name)) {
-                    BigDecimal currVal;
-                    if(outputMap.get(name) != null) {
+            for (int i = 0; i < inputArray.size(); i++) {
+                if (inputArray.get(i).get(mapKey).equals(name)) {
+                    if (outputMap.get(name) != null) {
                         currVal = outputMap.get(name);
                     } else {
                         currVal = new BigDecimal(0);
                     }
-                    BigDecimal addVal = new BigDecimal(inputArray.get(i).get("Amount"));
-                    BigDecimal newVal = currVal.add(addVal);
-                    outputMap.put(name, newVal);
-                } else if(inputArray.get(i).get("To").equals(name)) {
-                    BigDecimal currVal;
-                    if(outputMap.get(name) != null) {
-                        currVal = outputMap.get(name);
-                    } else {
-                        currVal = new BigDecimal(0);
-                    }
-                    BigDecimal addVal = new BigDecimal(inputArray.get(i).get("Amount"));
-                    BigDecimal newVal = currVal.subtract(addVal);
-                    outputMap.put(name, newVal);
-                }
+                    newVal = new BigDecimal(inputArray.get(i).get("Amount"));
 
+                    switch (mapKey) {
+                        case "From":
+                            totalVal = currVal.add(newVal);
+                            break;
+                        case "To":
+                            totalVal = currVal.subtract(newVal);
+                            break;
+                        default: totalVal = new BigDecimal(0);
+                        break;
+                    }
+
+                    outputMap.put(name, totalVal);
+                }
             }
         }
-
         return outputMap;
     }
 }
