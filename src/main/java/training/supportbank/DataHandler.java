@@ -1,7 +1,6 @@
 package training.supportbank;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -9,13 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DataHandler {
-    public static void dataOutputter(String csvFile) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(csvFile));
-        reader.readLine();
-        System.out.print(dataConverter(reader));
-    }
-
-    private static List dataConverter(BufferedReader reader) throws IOException {
+    public static List dataConverter(BufferedReader reader) throws IOException {
         String transactionLine;
         List<Map> transactionArray = new ArrayList<>();
 
