@@ -5,7 +5,7 @@ import training.supportbank.Printer;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.*;
 
 public class TestPrinter {
     @Rule
@@ -16,7 +16,7 @@ public class TestPrinter {
         Printer printer = new Printer();
         String expectedOutput = "[{Date=01/01/2014, From=Jon A, To=Sarah T, Narrative=Pokemon Training, Amount=7.8}, {Date=04/01/2014, From=Stephen S, To=Tim L, Narrative=Lunch, Amount=4.37}]";
         printer.dataOutputter("TestFile.csv");
-        assertEquals(expectedOutput, systemOutRule.getLog());
+        assertThat(expectedOutput).isEqualTo(systemOutRule.getLog());
     }
 
 }
