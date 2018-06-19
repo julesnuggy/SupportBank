@@ -6,20 +6,20 @@ import java.util.*;
 public class PrinterFormatter {
 
     public static String convertToCurrency(BigDecimal value, Locale locale) {
-        String outputValue;
+        String currencyValueString;
         String outputCurrency = Currency.getInstance(locale).getSymbol(locale);
-        outputValue = outputCurrency + value.abs().toString();
-        return outputValue;
+        currencyValueString = outputCurrency + value.abs().toString();
+        return currencyValueString;
     }
 
-    public static List<String> createScript(Map<String, BigDecimal> calculatedMap) {
-        List<String> outputArray = new ArrayList<>();
-        calculatedMap.forEach((key, value) -> {
+    public static List<String> convertMapToSentence(Map<String, BigDecimal> uniqueNameSubtotalMap) {
+        List<String> uniqueNameSubtotalSentenceArray = new ArrayList<>();
+        uniqueNameSubtotalMap.forEach((key, value) -> {
             String operand = value.compareTo(new BigDecimal(0)) < 0 ? " owes " : " is owed ";
-            outputArray.add(key + operand + convertToCurrency(value, Locale.UK));
+            uniqueNameSubtotalSentenceArray.add(key + operand + convertToCurrency(value, Locale.UK));
         });
 
-        return outputArray;
+        return uniqueNameSubtotalSentenceArray;
     }
 
 }

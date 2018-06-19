@@ -30,7 +30,7 @@ public class Main {
         String operation = scanner.next();
 
         if (operation.equals("ListAll")) {
-            List<String> listAllArray = formatter.createScript(calculatedMap);
+            List<String> listAllArray = formatter.convertMapToSentence(calculatedMap);
             printer.listAll(listAllArray);
         } else if (operation.equals("ListAccount")) {
             System.out.print("Enter the full name of the person whose transactions you wish to view: ");

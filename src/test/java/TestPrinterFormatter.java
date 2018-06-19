@@ -28,7 +28,7 @@ public class TestPrinterFormatter {
         expectedOutput.add("John D is owed £5.00");
         expectedOutput.add("Jane D owes £3.00");
         PrinterFormatter formatter = new PrinterFormatter();
-        List<String> actualOutput = formatter.createScript(fakeMapInput);
+        List<String> actualOutput = formatter.convertMapToSentence(fakeMapInput);
         assertThat(actualOutput).isEqualTo(expectedOutput);
     }
 
