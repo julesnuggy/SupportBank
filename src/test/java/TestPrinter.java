@@ -11,19 +11,11 @@ public class TestPrinter {
     @Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
 
-//    @Test
-//    public void dataOutputterPrintsToConsole() throws IOException {
-//        Printer printer = new Printer();
-//        String expectedOutput = "[{Date=01/01/2014, From=Jon A, To=Sarah T, Narrative=Pokemon Training, Amount=7.8}, {Date=04/01/2014, From=Stephen S, To=Tim L, Narrative=Lunch, Amount=4.37}]";
-//        printer.dataOutputter("TestFile.csv");
-//        assertThat(expectedOutput).isEqualTo(systemOutRule.getLog());
-//    }
-
     @Test
-    public void dataOutputterPrintsToConsole() throws IOException {
+    public void listAllPrintsToConsole() throws IOException {
         Printer printer = new Printer();
-        String expectedOutput = "{Jon A=7.80, Stephen S=4.37, Sarah T=-7.80, Tim L=-4.37}";
-        printer.dataOutputter("TestFile.csv");
-        assertThat(systemOutRule.getLog()).isEqualTo(expectedOutput);
+        String expectedOutput = "Jon A is owed £7.80\nStephen S is owed £4.37\nSarah T owes £7.80\nTim L owes £4.37\n";
+        printer.listAll("TestFile.csv");
+        assertThat(systemOutRule.getLog()).isEqualToIgnoringNewLines(expectedOutput);
     }
 }
