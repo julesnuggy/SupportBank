@@ -9,30 +9,30 @@ import java.util.Map;
 import java.util.Set;
 
 public class Printer {
-    @Inject private static DataHandler dataHandler;
-    @Inject private static BufferedReader reader;
-    @Inject private static PrinterFormatter formatter;
+//    @Inject private static DataHandler dataHandler;
+//    @Inject private static BufferedReader reader;
+//    @Inject private static PrinterFormatter formatter;
 
-    public Printer(DataHandler dataHandler, BufferedReader reader, PrinterFormatter formatter) throws IOException {
-        this.dataHandler = dataHandler;
-        this.reader = reader;
-        this.formatter = formatter;
-        this.reader.readLine();
-    }
+//    public Printer(DataHandler dataHandler, BufferedReader reader, PrinterFormatter formatter) throws IOException {
+//        this.dataHandler = dataHandler;
+//        this.reader = reader;
+//        this.formatter = formatter;
+//        this.reader.readLine();
+//    }
 
-    public static void listAll(String csvFile) throws IOException {
-        List<Map<String, String>> transactionsToPrint = dataHandler.dataConverter(reader);
-        Set<String> namesToUse = dataHandler.extractNames(transactionsToPrint);
-        Map<String, BigDecimal> calculatedMap = dataHandler.calculateBalance(transactionsToPrint, namesToUse);
-        List<String> listAllArray = formatter.createScript(calculatedMap);
+    public static void listAll(List<String> listAllArray) {
+//        List<Map<String, String>> transactionsToPrint = dataHandler.dataConverter(reader);
+//        Set<String> namesToUse = dataHandler.extractNames(transactionsToPrint);
+//        Map<String, BigDecimal> calculatedMap = dataHandler.calculateBalance(transactionsToPrint, namesToUse);
+//        List<String> listAllArray = formatter.createScript(calculatedMap);
         for(String element : listAllArray) {
             System.out.println(element);
         }
     }
 
-    public static void listAccount(String csvFile, String accountName) throws IOException {
-        List<Map<String, String>> transactionsToPrint = dataHandler.dataConverter(reader);
-        List<Map<String, String>> listAccountArray = dataHandler.filterAccounts(transactionsToPrint, accountName);
+    public static void listAccount(List<Map<String, String>> listAccountArray , String accountName) throws IOException {
+//        List<Map<String, String>> transactionsToPrint = dataHandler.dataConverter(reader);
+//        List<Map<String, String>> listAccountArray = dataHandler.filterAccounts(transactionsToPrint, accountName);
         for(Map element : listAccountArray) {
             System.out.println(element);
         }
