@@ -28,6 +28,7 @@ public class Main {
                 "ListAccount - outputs every transaction associated with the given name\n" +
                 "Please enter your desired operation: ");
         String operation = scanner.next();
+
         if (operation.equals("ListAll")) {
             List<String> listAllArray = formatter.createScript(calculatedMap);
             printer.listAll(listAllArray);

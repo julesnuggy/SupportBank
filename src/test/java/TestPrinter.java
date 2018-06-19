@@ -4,7 +4,9 @@ import org.junit.contrib.java.lang.system.SystemOutRule;
 import training.supportbank.Printer;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -17,15 +19,19 @@ public class TestPrinter {
         Printer printer = new Printer();
         String expectedOutput = "Jon A is owed £7.80\nStephen S is owed £4.37\nSarah T owes £7.80\nTim L owes £4.37\n";
         List<String> listAllArray = new ArrayList<>();
-//        printer.listAll("TestFile.csv");
-//        assertThat(systemOutRule.getLog()).isEqualToIgnoringNewLines(expectedOutput);
+        listAllArray.add("Jon A is owed £7.80");
+        listAllArray.add("Stephen S is owed £4.37");
+        listAllArray.add("Sarah T owes £7.80");
+        listAllArray.add("Tim L owes £4.37");
+        printer.listAll(listAllArray);
+        assertThat(systemOutRule.getLog()).isEqualToIgnoringNewLines(expectedOutput);
     }
 
     @Test
     public void listAccountPrintsToConsole() {
         Printer printer = new Printer();
         String expectedOutput = "{Date=01/01/2014, From=Jon A, To=Sarah T, Narrative=Pokemon Training, Amount=7.8}";
-//        printer.listAccount("TestFile.csv", "Jon A");
+        //        printer.listAccount("TestFile.csv", "Jon A");
 //        assertThat(systemOutRule.getLog()).isEqualToIgnoringNewLines(expectedOutput);
     }
 }
