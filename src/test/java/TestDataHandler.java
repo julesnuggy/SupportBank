@@ -11,29 +11,33 @@ import java.util.*;
 import static org.assertj.core.api.Assertions.*;
 
 public class TestDataHandler {
-    private static List<Map<String, String>> expectedArray = new ArrayList<>();
+    private static DataHandler dataHandler;
+    private static Map<String, String> fakeMap = new LinkedHashMap<>();
+    private static List<Map<String, String>> fakeArray = new ArrayList<>();
     private static Map<String, BigDecimal> expectedBalancesMap = new LinkedHashMap<>();
 
     @Before
     public void populateExpectedOutputs() {
-        expectedArray.clear();
+        fakeArray.clear();
         expectedBalancesMap.clear();
 
-        Map<String, String> expectedMap = new LinkedHashMap<>();
-        expectedMap.put("Date", "01/01/14");
-        expectedMap.put("From", "John D");
-        expectedMap.put("To", "Jane D");
-        expectedMap.put("Narrative", "Doughnuts");
-        expectedMap.put("Amount", "5.00");
-        expectedArray.add(expectedMap);
+        dataHandler = new DataHandler();
 
-        expectedMap = new LinkedHashMap<>();
-        expectedMap.put("Date", "01/01/14");
-        expectedMap.put("From", "Jane D");
-        expectedMap.put("To", "John D");
-        expectedMap.put("Narrative", "Coffee");
-        expectedMap.put("Amount", "2.00");
-        expectedArray.add(expectedMap);
+        fakeMap = new LinkedHashMap<>();
+        fakeMap.put("Date", "01/01/14");
+        fakeMap.put("From", "John D");
+        fakeMap.put("To", "Jane D");
+        fakeMap.put("Narrative", "Doughnuts");
+        fakeMap.put("Amount", "5.00");
+        fakeArray.add(fakeMap);
+
+        fakeMap = new LinkedHashMap<>();
+        fakeMap.put("Date", "01/01/14");
+        fakeMap.put("From", "Jane D");
+        fakeMap.put("To", "John D");
+        fakeMap.put("Narrative", "Coffee");
+        fakeMap.put("Amount", "2.00");
+        fakeArray.add(fakeMap);
 
         expectedBalancesMap.put("John D", new BigDecimal("3.00"));
         expectedBalancesMap.put("Jane D", new BigDecimal( "-3.00"));
@@ -41,27 +45,43 @@ public class TestDataHandler {
 
     @Test
     public void dataConverterConvertsCsvToArrayOfMaps() throws IOException {
-        DataHandler dataHandler = new DataHandler();
         BufferedReader fakeBufferedReader = Mockito.mock(BufferedReader.class);
         Mockito.when(fakeBufferedReader.readLine()).thenReturn("01/01/14,John D,Jane D,Doughnuts,5.00", "01/01/14,Jane D,John D,Coffee,2.00", null);
-        assertThat(dataHandler.dataConverter(fakeBufferedReader)).isEqualTo(expectedArray);
+        assertThat(dataHandler.dataConverter(fakeBufferedReader)).isEqualTo(fakeArray);
     }
 
     @Test
     public void extractNamesReturnsArrayOfUniqueNames() {
-        DataHandler dataHandler = new DataHandler();
-        Set<String> tempSet = dataHandler.extractNames(expectedArray);
+        Set<String> tempSet = dataHandler.extractNames(fakeArray);
         assertThat(tempSet.size()).isEqualTo(2);
         assertThat(tempSet).contains("John D", "Jane D");
     }
 
     @Test
     public void calculateBalanceReturnsTotalOwedPerPerson() {
-        DataHandler dataHandler = new DataHandler();
         Set<String> setOfNames = new HashSet<>();
         setOfNames.add("John D");
         setOfNames.add("Jane D");
         setOfNames.add("No Transactions Jo");
-        assertThat(dataHandler.calculateBalance(expectedArray, setOfNames)).isEqualTo(expectedBalancesMap);
+        assertThat(dataHandler.calculateBalance(fakeArray, setOfNames)).isEqualTo(expectedBalancesMap);
+    }
+
+    @Test
+    public void filterAccountsReturnsDesiredTransactions() {
+        List<Map<String, String>> anotherFakeArray = new ArrayList<>();
+        anotherFakeArray.addAll(fakeArray);
+        fakeMap = new LinkedHashMap<>();
+        fakeMap.put("Date", "01/01/14");
+        fakeMap.put("From", "Sarah B");
+        fakeMap.put("To", "Jennifer A");
+        fakeMap.put("Narrative", "Shoes");
+        fakeMap.put("Amount", "200.00");
+        anotherFakeArray.add(fakeMap);
+
+        List<Map<String, String>> actualFilteredList = dataHandler.filterAccounts(anotherFakeArray, "John D");
+        System.out.println(actualFilteredList);
+        System.out.println(fakeArray);
+        assertThat(actualFilteredList).isEqualTo(fakeArray);
+
     }
 }

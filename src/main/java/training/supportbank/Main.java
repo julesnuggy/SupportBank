@@ -8,6 +8,7 @@ public class Main {
         Printer printer = new Printer();
 //        Scanner scanner = new Scanner(System.in);
 
-        printer.listAll("Transactions2014.csv");
+//        printer.listAll("Transactions2014.csv");
+        printer.listAccount("Transactions2014.csv", "Jon A");
     }
 }

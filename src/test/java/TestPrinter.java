@@ -18,4 +18,12 @@ public class TestPrinter {
         printer.listAll("TestFile.csv");
         assertThat(systemOutRule.getLog()).isEqualToIgnoringNewLines(expectedOutput);
     }
+
+    @Test
+    public void listAccountPrintsToConsole() throws IOException {
+        Printer printer = new Printer();
+        String expectedOutput = "{Date=01/01/2014, From=Jon A, To=Sarah T, Narrative=Pokemon Training, Amount=7.8}";
+        printer.listAccount("TestFile.csv", "Jon A");
+        assertThat(systemOutRule.getLog()).isEqualToIgnoringNewLines(expectedOutput);
+    }
 }

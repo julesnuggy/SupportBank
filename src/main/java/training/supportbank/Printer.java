@@ -26,7 +26,11 @@ public class Printer {
 
     public static void listAccount(String csvFile, String accountName) throws IOException {
         prepareFile(csvFile);
-
+        List<Map<String, String>> transactionsToPrint = dataHandler.dataConverter(reader);
+        List<Map<String, String>> finalArray = dataHandler.filterAccounts(transactionsToPrint, accountName);
+        for(Map element : finalArray) {
+            System.out.println(element);
+        }
     }
 
     private static void prepareFile(String csvFile) throws IOException {

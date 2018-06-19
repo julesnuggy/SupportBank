@@ -37,6 +37,16 @@ public class DataHandler {
         return setOfNames;
     }
 
+    public static List<Map<String, String>> filterAccounts(List<Map<String, String>> inputArray, String accountName) {
+        List<Map<String, String>> filteredArray = new ArrayList<>();
+        for (Map<String, String> arrElement : inputArray) {
+            if (arrElement.get("From").equals(accountName) || arrElement.get("To").equals(accountName)) {
+                filteredArray.add(arrElement);
+            }
+        }
+        return filteredArray;
+    }
+
     public static Map<String, BigDecimal> calculateBalance(List<Map<String, String>> inputArray, Set<String> setOfNames) {
         Map<String, BigDecimal> finalOutput = new LinkedHashMap<>();
         finalOutput = getValues(inputArray, setOfNames, finalOutput,"From");
