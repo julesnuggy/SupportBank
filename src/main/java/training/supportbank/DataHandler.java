@@ -3,83 +3,72 @@ package training.supportbank;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class DataHandler {
-    public static List<Map<String, String>> dataConverter(BufferedReader reader) throws IOException {
+    public static List<Transaction> dataConverter(BufferedReader reader) throws IOException, ParseException {
         String transactionLine;
-        List<Map<String, String>> transactionArray = new ArrayList<>();
+        List<Transaction> transactionArray = new ArrayList<>();
 
         while ((transactionLine = reader.readLine()) != null) {
-            Map<String, String> transactionMap = new LinkedHashMap<>();
             String[] transaction = transactionLine.split(",");
-            transactionMap.put("Date", transaction[0].replace("\"", ""));
-            transactionMap.put("From", transaction[1]);
-            transactionMap.put("To", transaction[2]);
-            transactionMap.put("Narrative", transaction[3]);
-            transactionMap.put("Amount", transaction[4].replace("\"", ""));
-            transactionArray.add(transactionMap);
+            String stringDate = transaction[0].replace("\"", "");
+            Date tranDate = new SimpleDateFormat("dd/MM/yyyy").parse(stringDate);
+            String tranFrom = transaction[1];
+            String tranTo = transaction[2];
+            String tranNarrative = transaction[3];
+            BigDecimal tranAmount = new BigDecimal(transaction[4].replace("\"", ""));
+            Transaction transactionObject = new Transaction(tranDate, tranFrom, tranTo, tranNarrative, tranAmount);
+            transactionArray.add(transactionObject);
         }
         return transactionArray;
     }
 
-    public static Set<String> extractNames(List<Map<String, String>> inputArray) {
-        String fromName, toName;
+    public static Set<String> extractNames(List<Transaction> inputArray) {
         Set<String> setOfNames = new HashSet<>();
 
         for (int i = 0; i < inputArray.size(); i++) {
-            fromName = inputArray.get(i).get("From");
-            toName = inputArray.get(i).get("To");
-            setOfNames.add(fromName);
-            setOfNames.add(toName);
+            for(Transaction tranElement : inputArray) {
+                setOfNames.add(tranElement.from);
+                setOfNames.add(tranElement.to);
+            }
         }
         return setOfNames;
     }
 
-    public static List<Map<String, String>> filterAccounts(List<Map<String, String>> inputArray, String accountName) {
-        List<Map<String, String>> filteredArray = new ArrayList<>();
-        for (Map<String, String> arrElement : inputArray) {
-            if (arrElement.get("From").equals(accountName) || arrElement.get("To").equals(accountName)) {
-                filteredArray.add(arrElement);
+    public static List<Transaction> filterAccounts(List<Transaction> inputArray, String accountName) {
+        List<Transaction> filteredArray = new ArrayList<>();
+        for (Transaction tranElement : inputArray)
+            if (tranElement.from.equals(accountName) || tranElement.to.equals(accountName)) {
+                filteredArray.add(tranElement);
             }
-        }
         return filteredArray;
     }
 
-    public static Map<String, BigDecimal> calculateBalance(List<Map<String, String>> inputArray, Set<String> setOfNames) {
-        Map<String, BigDecimal> finalOutput = new LinkedHashMap<>();
-        finalOutput = getValues(inputArray, setOfNames, finalOutput,"From");
-        finalOutput = getValues(inputArray, setOfNames, finalOutput,"To");
-        return finalOutput;
+    public static Map<String, BigDecimal> calculateBalance(List<Transaction> inputArray, Set<String> setOfNames) {
+        Map<String, BigDecimal> mapOfUniqueBalances = getValues(inputArray, setOfNames);
+        return mapOfUniqueBalances;
     }
 
-    private static Map<String, BigDecimal> getValues(List<Map<String, String>> inputArray, Set<String> setOfNames, Map<String, BigDecimal> outputMap, String mapKey) {
-        BigDecimal currVal, newVal, totalVal;
+    private static Map<String, BigDecimal> getValues(List<Transaction> transactions, Set<String> setOfNames) {
+        Map<String, BigDecimal> outputMap = new LinkedHashMap<>();
 
         for (String name : setOfNames) {
-            for (int i = 0; i < inputArray.size(); i++) {
-                if (inputArray.get(i).get(mapKey).equals(name)) {
-                    if (outputMap.get(name) != null) {
-                        currVal = outputMap.get(name);
-                    } else {
-                        currVal = new BigDecimal(0);
-                    }
-                    newVal = new BigDecimal(inputArray.get(i).get("Amount"));
+            BigDecimal currVal = BigDecimal.valueOf(0.00);
+//            BigDecimal sumTotal = transactions
+//                    .stream()
+//                    .filter(fromName -> )
+//                    .reduce(0, (a, b) -> a + b);
 
-                    switch (mapKey) {
-                        case "From":
-                            totalVal = currVal.add(newVal);
-                            break;
-                        case "To":
-                            totalVal = currVal.subtract(newVal);
-                            break;
-                        default: totalVal = new BigDecimal(0);
-                        break;
-                    }
-
-                    outputMap.put(name, totalVal.setScale(2, RoundingMode.HALF_UP));
+            for (int i = 0; i < transactions.size(); i++) {
+                if (transactions.get(i).from.equals(name)) {
+                    currVal = currVal.add(transactions.get(i).amount);
+                } else if (transactions.get(i).to.equals(name)) {
+                    currVal = currVal.subtract(transactions.get(i).amount);
                 }
+                outputMap.put(name, currVal);
             }
         }
         return outputMap;
