@@ -17,9 +17,8 @@ public class Main {
 
         List<Transaction> transactionsToPrint = dataHandler.dataConverter(reader);
         Set<String> namesToUse = dataHandler.extractNames(transactionsToPrint);
-        Map<String, BigDecimal> calculatedMap = dataHandler.calculateBalance(transactionsToPrint, namesToUse);
+        Map<String, BigDecimal> namesAndSubtotals = dataHandler.calculateBalance(transactionsToPrint, namesToUse);
 
-        Printer printer = new Printer();
         Scanner scanner = new Scanner(System.in);
         System.out.print("This programme allows you to view processed data for the Transaction2014.csv file.\n" +
                 "ListAll - outputs each persons name and the total they owe or are owed\n" +
@@ -28,14 +27,14 @@ public class Main {
         String operation = scanner.next();
 
         if (operation.equals("ListAll")) {
-            List<String> listAllArray = formatter.convertMapToSentence(calculatedMap);
-            printer.listAll(listAllArray);
+            List<String> listAllArray = formatter.convertMapToSentence(namesAndSubtotals);
+            Printer.listAll(listAllArray);
         } else if (operation.equals("ListAccount")) {
             System.out.print("Enter the full name of the person whose transactions you wish to view: ");
             String accountName = scanner.next();
             accountName += scanner.nextLine();
             List<String> listAccountToPrint = dataHandler.filterAccounts(transactionsToPrint, accountName);
-            printer.listAccount(listAccountToPrint, accountName);
+            Printer.listAccount(listAccountToPrint, accountName);
         } else {
             System.out.print("Invalid input");
         }
