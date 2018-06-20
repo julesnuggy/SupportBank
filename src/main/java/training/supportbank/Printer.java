@@ -1,8 +1,6 @@
 package training.supportbank;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 public class Printer {
 
@@ -12,8 +10,8 @@ public class Printer {
         }
     }
 
-    public static void listAccount(List<Map<String, String>> listAccountArray , String accountName) throws IOException {
-        for(Map element : listAccountArray) {
+    public static void listAccount(List<String> listAccountArray, String accountName) {
+        for(String element : listAccountArray) {
             System.out.println(element);
         }
     }

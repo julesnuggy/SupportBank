@@ -38,11 +38,14 @@ public class DataHandler {
         return setOfNames;
     }
 
-    public static List<Transaction> filterAccounts(List<Transaction> inputArray, String accountName) {
-        List<Transaction> filteredArray = new ArrayList<>();
+    public static List<String> filterAccounts(List<Transaction> inputArray, String accountName) {
+        List<String> filteredArray = new ArrayList<>();
+        String filteredAccountDetails;
         for (Transaction tranElement : inputArray)
             if (tranElement.from.equals(accountName) || tranElement.to.equals(accountName)) {
-                filteredArray.add(tranElement);
+                filteredAccountDetails = "[Date] " + tranElement.date + " [From] " + tranElement.from +
+                    " [To] :" + tranElement.to + " [For] " + tranElement.narrative + " [Costing] " + tranElement.amount;
+                filteredArray.add(filteredAccountDetails);
             }
         return filteredArray;
     }

@@ -68,7 +68,7 @@ public class TestDataHandler {
         testTransaction = new Transaction(tranDate, "Sarah B", "Jenn A", "Shoes", BigDecimal.valueOf(200.0));
         anotherTestTransactionList.add(testTransaction);
 
-        List<Transaction> actualFilteredList = dataHandler.filterAccounts(anotherTestTransactionList, "John D");
+        List<String> actualFilteredList = dataHandler.filterAccounts(anotherTestTransactionList, "John D");
         assertThat(actualFilteredList).isEqualTo(testTransactionsList);
     }
 }
