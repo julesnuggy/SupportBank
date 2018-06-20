@@ -8,7 +8,7 @@ public class PrinterFormatter {
     public static String convertToCurrency(BigDecimal value, Locale locale) {
         String currencyValueString;
         String outputCurrency = Currency.getInstance(locale).getSymbol(locale);
-        currencyValueString = outputCurrency + value.abs().toString();
+        currencyValueString = outputCurrency + value.setScale(2).abs().toString();
         return currencyValueString;
     }
 
