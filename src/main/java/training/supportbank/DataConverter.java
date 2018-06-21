@@ -50,26 +50,21 @@ public class DataConverter {
         return filteredAccounts;
     }
 
-    public static Map<String, BigDecimal> calculateBalance(List<Transaction> inputArray, Set<String> setOfNames) {
-        Map<String, BigDecimal> mapOfUniqueBalances = getValues(inputArray, setOfNames);
-        return mapOfUniqueBalances;
-    }
+    public static Map<String, BigDecimal> calculateBalance(List<Transaction> transactions, Set<String> accountNames) {
+        Map<String, BigDecimal> accountBalances = new LinkedHashMap<>();
 
-    private static Map<String, BigDecimal> getValues(List<Transaction> transactions, Set<String> setOfNames) {
-        Map<String, BigDecimal> outputMap = new LinkedHashMap<>();
+        for (String name : accountNames) {
+            BigDecimal currentValue = BigDecimal.valueOf(0.00);
 
-        for (String name : setOfNames) {
-            BigDecimal currVal = BigDecimal.valueOf(0.00);
-
-            for (int i = 0; i < transactions.size(); i++) {
-                if (transactions.get(i).from.equals(name)) {
-                    currVal = currVal.add(transactions.get(i).amount);
-                } else if (transactions.get(i).to.equals(name)) {
-                    currVal = currVal.subtract(transactions.get(i).amount);
+            for(Transaction transaction : transactions) {
+                if (transaction.from.equals(name)) {
+                    currentValue = currentValue.add(transaction.amount);
+                } else if (transaction.to.equals(name)) {
+                    currentValue = currentValue.subtract(transaction.amount);
                 }
-                outputMap.put(name, currVal);
+                accountBalances.put(name, currentValue);
             }
         }
-        return outputMap;
+        return accountBalances;
     }
 }
