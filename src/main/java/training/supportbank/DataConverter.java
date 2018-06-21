@@ -38,16 +38,16 @@ public class DataConverter {
         return accountNames;
     }
 
-    public static List<String> filterAccounts(List<Transaction> inputArray, String accountName) {
-        List<String> filteredArray = new ArrayList<>();
+    public static List<String> filterAccounts(List<Transaction> transactions, String accountName) {
+        List<String> filteredAccounts = new ArrayList<>();
         String filteredAccountDetails;
-        for (Transaction tranElement : inputArray)
-            if (tranElement.from.equals(accountName) || tranElement.to.equals(accountName)) {
-                filteredAccountDetails = "[Date] " + tranElement.date + " [From] " + tranElement.from +
-                    " [To] :" + tranElement.to + " [For] " + tranElement.narrative + " [Costing] " + tranElement.amount;
-                filteredArray.add(filteredAccountDetails);
+        for (Transaction transaction : transactions)
+            if (transaction.from.equals(accountName) || transaction.to.equals(accountName)) {
+                filteredAccountDetails = "[Date] " + transaction.date + " [From] " + transaction.from +
+                    " [To] :" + transaction.to + " [For] " + transaction.narrative + " [Costing] " + transaction.amount;
+                filteredAccounts.add(filteredAccountDetails);
             }
-        return filteredArray;
+        return filteredAccounts;
     }
 
     public static Map<String, BigDecimal> calculateBalance(List<Transaction> inputArray, Set<String> setOfNames) {
