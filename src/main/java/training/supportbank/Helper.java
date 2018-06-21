@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+//Provides static Helper functions
 public class Helper {
     public static Set<String> extractNames(List<Transaction> transactions) {
         Set<String> accountNames = new HashSet<>();

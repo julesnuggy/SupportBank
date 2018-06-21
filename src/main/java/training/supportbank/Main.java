@@ -11,12 +11,13 @@ public class Main {
     public static void main(String args[]) throws IOException, ParseException {
         String csvFile = "Transactions2014.csv";
         DataConverter dataConverter = new DataConverter();
+        ProcessTransactions processTransactions = new ProcessTransactions();
         BufferedReader reader = new BufferedReader(new FileReader(csvFile));
         reader.readLine();
 
         List<Transaction> transactionsToPrint = dataConverter.extractTransactions(reader);
         Set<String> namesToUse = Helper.extractNames(transactionsToPrint);
-        Map<String, BigDecimal> namesAndSubtotals = dataConverter.calculateBalance(transactionsToPrint, namesToUse);
+        Map<String, BigDecimal> namesAndSubtotals = processTransactions.calculateBalances(transactionsToPrint, namesToUse);
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("This programme allows you to view processed data for the Transaction2014.csv file.\n" +
@@ -31,7 +32,7 @@ public class Main {
             System.out.print("Enter the full name of the person whose transactions you wish to view: ");
             String accountName = scanner.next();
             accountName += scanner.nextLine();
-            List<String> listAccountToPrint = dataConverter.filterAccounts(transactionsToPrint, accountName);
+            List<String> listAccountToPrint = processTransactions.filterAccounts(transactionsToPrint, accountName);
             Printer.listAccount(listAccountToPrint, accountName);
         } else {
             System.out.print("Invalid input");
