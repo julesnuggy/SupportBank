@@ -10,14 +10,12 @@ import java.util.*;
 public class Main {
     public static void main(String args[]) throws IOException, ParseException {
         String csvFile = "Transactions2014.csv";
-        DataConverter dataConverter = new DataConverter();
-        ProcessTransactions processTransactions = new ProcessTransactions();
         BufferedReader reader = new BufferedReader(new FileReader(csvFile));
         reader.readLine();
 
-        List<Transaction> transactionsToPrint = dataConverter.extractTransactions(reader);
-        Set<String> namesToUse = Helper.extractNames(transactionsToPrint);
-        Map<String, BigDecimal> namesAndSubtotals = processTransactions.calculateBalances(transactionsToPrint, namesToUse);
+        List<Transaction> transactions = DataConverter.extractTransactions(reader);
+        Set<String> accountNames = Helper.extractNames(transactions);
+        Map<String, BigDecimal> accountBalances = ProcessTransactions.calculateBalances(transactions, accountNames);
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("This programme allows you to view processed data for the Transaction2014.csv file.\n" +
@@ -27,13 +25,13 @@ public class Main {
         String operation = scanner.next();
 
         if (operation.equals("ListAll")) {
-            Printer.listAll(namesAndSubtotals);
+            Printer.listAll(accountBalances);
         } else if (operation.equals("ListAccount")) {
             System.out.print("Enter the full name of the person whose transactions you wish to view: ");
             String accountName = scanner.next();
             accountName += scanner.nextLine();
-            List<String> listAccountToPrint = processTransactions.filterAccounts(transactionsToPrint, accountName);
-            Printer.listAccount(listAccountToPrint, accountName);
+            List<String> filteredAccountsToPrint = ProcessTransactions.filterAccounts(transactions, accountName);
+            Printer.listAccount(filteredAccountsToPrint, accountName);
         } else {
             System.out.print("Invalid input");
         }
