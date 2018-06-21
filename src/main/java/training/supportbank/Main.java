@@ -12,10 +12,9 @@ public class Main {
         String csvFile = "Transactions2014.csv";
         DataConverter dataConverter = new DataConverter();
         BufferedReader reader = new BufferedReader(new FileReader(csvFile));
-        PrinterFormatter formatter = new PrinterFormatter();
         reader.readLine();
 
-        List<Transaction> transactionsToPrint = dataConverter.dataConverter(reader);
+        List<Transaction> transactionsToPrint = dataConverter.extractTransactions(reader);
         Set<String> namesToUse = dataConverter.extractNames(transactionsToPrint);
         Map<String, BigDecimal> namesAndSubtotals = dataConverter.calculateBalance(transactionsToPrint, namesToUse);
 

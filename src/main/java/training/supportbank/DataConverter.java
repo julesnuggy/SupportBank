@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class DataConverter {
-    public static List<Transaction> dataConverter(BufferedReader reader) throws IOException, ParseException {
+    public static List<Transaction> extractTransactions(BufferedReader reader) throws IOException, ParseException {
         String transactionLine;
         List<Transaction> transactions = new ArrayList<>();
 

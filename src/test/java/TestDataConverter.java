@@ -38,7 +38,7 @@ public class TestDataConverter {
     public void dataConverterConvertsCsvToArrayOfMaps() throws IOException, ParseException {
         BufferedReader testBufferedReader = Mockito.mock(BufferedReader.class);
         Mockito.when(testBufferedReader.readLine()).thenReturn("01/01/14,John D,Jane D,Doughnuts,5.00", "01/01/14,Jane D,John D,Coffee,2.00", null);
-        List<Transaction> actualDataConverterOutput = dataConverter.dataConverter(testBufferedReader);
+        List<Transaction> actualDataConverterOutput = dataConverter.extractTransactions(testBufferedReader);
         assertThat(actualDataConverterOutput)
                 .hasSameClassAs(testTransactionsList)
                 .hasSameSizeAs(testTransactionsList);
