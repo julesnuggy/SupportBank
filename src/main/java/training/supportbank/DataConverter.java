@@ -7,23 +7,23 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class DataHandler {
+public class DataConverter {
     public static List<Transaction> dataConverter(BufferedReader reader) throws IOException, ParseException {
         String transactionLine;
-        List<Transaction> transactionArray = new ArrayList<>();
+        List<Transaction> transactions = new ArrayList<>();
 
         while ((transactionLine = reader.readLine()) != null) {
-            String[] transaction = transactionLine.split(",");
-            String stringDate = transaction[0].replace("\"", "");
-            Date tranDate = new SimpleDateFormat("dd/MM/yyyy").parse(stringDate);
-            String tranFrom = transaction[1];
-            String tranTo = transaction[2];
-            String tranNarrative = transaction[3];
-            BigDecimal tranAmount = new BigDecimal(transaction[4].replace("\"", ""));
-            Transaction transactionObject = new Transaction(tranDate, tranFrom, tranTo, tranNarrative, tranAmount);
-            transactionArray.add(transactionObject);
+            String[] transactionProperties = transactionLine.split(",");
+            String stringDate = transactionProperties[0].replace("\"", "");
+            Date date = new SimpleDateFormat("dd/MM/yyyy").parse(stringDate);
+            String from = transactionProperties[1];
+            String to = transactionProperties[2];
+            String narrrative = transactionProperties[3];
+            BigDecimal amount = new BigDecimal(transactionProperties[4].replace("\"", ""));
+            Transaction transaction = new Transaction(date, from, to, narrrative, amount);
+            transactions.add(transaction);
         }
-        return transactionArray;
+        return transactions;
     }
 
     public static Set<String> extractNames(List<Transaction> inputArray) {

@@ -10,14 +10,14 @@ import java.util.*;
 public class Main {
     public static void main(String args[]) throws IOException, ParseException {
         String csvFile = "Transactions2014.csv";
-        DataHandler dataHandler = new DataHandler();
+        DataConverter dataConverter = new DataConverter();
         BufferedReader reader = new BufferedReader(new FileReader(csvFile));
         PrinterFormatter formatter = new PrinterFormatter();
         reader.readLine();
 
-        List<Transaction> transactionsToPrint = dataHandler.dataConverter(reader);
-        Set<String> namesToUse = dataHandler.extractNames(transactionsToPrint);
-        Map<String, BigDecimal> namesAndSubtotals = dataHandler.calculateBalance(transactionsToPrint, namesToUse);
+        List<Transaction> transactionsToPrint = dataConverter.dataConverter(reader);
+        Set<String> namesToUse = dataConverter.extractNames(transactionsToPrint);
+        Map<String, BigDecimal> namesAndSubtotals = dataConverter.calculateBalance(transactionsToPrint, namesToUse);
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("This programme allows you to view processed data for the Transaction2014.csv file.\n" +
@@ -32,7 +32,7 @@ public class Main {
             System.out.print("Enter the full name of the person whose transactions you wish to view: ");
             String accountName = scanner.next();
             accountName += scanner.nextLine();
-            List<String> listAccountToPrint = dataHandler.filterAccounts(transactionsToPrint, accountName);
+            List<String> listAccountToPrint = dataConverter.filterAccounts(transactionsToPrint, accountName);
             Printer.listAccount(listAccountToPrint, accountName);
         } else {
             System.out.print("Invalid input");
