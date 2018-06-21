@@ -18,24 +18,24 @@ public class DataConverter {
             Date date = new SimpleDateFormat("dd/MM/yyyy").parse(stringDate);
             String from = transactionProperties[1];
             String to = transactionProperties[2];
-            String narrrative = transactionProperties[3];
+            String narrative = transactionProperties[3];
             BigDecimal amount = new BigDecimal(transactionProperties[4].replace("\"", ""));
-            Transaction transaction = new Transaction(date, from, to, narrrative, amount);
+            Transaction transaction = new Transaction(date, from, to, narrative, amount);
             transactions.add(transaction);
         }
         return transactions;
     }
 
-    public static Set<String> extractNames(List<Transaction> inputArray) {
-        Set<String> setOfNames = new HashSet<>();
+    public static Set<String> extractNames(List<Transaction> transactions) {
+        Set<String> accountNames = new HashSet<>();
 
-        for (int i = 0; i < inputArray.size(); i++) {
-            for(Transaction tranElement : inputArray) {
-                setOfNames.add(tranElement.from);
-                setOfNames.add(tranElement.to);
+        for (int i = 0; i < transactions.size(); i++) {
+            for(Transaction transaction : transactions) {
+                accountNames.add(transaction.from);
+                accountNames.add(transaction.to);
             }
         }
-        return setOfNames;
+        return accountNames;
     }
 
     public static List<String> filterAccounts(List<Transaction> inputArray, String accountName) {
