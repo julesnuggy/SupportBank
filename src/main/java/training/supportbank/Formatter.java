@@ -22,11 +22,11 @@ public class Formatter {
         return uniqueNameSubtotalSentenceArray;
     }
 
-    public static String formatFilteredAccounts(Transaction transaction) {
-        String filteredAccountDetails = "[Date] " + transaction.date + " [From] " + transaction.from + " [To] :" +
+    public static String formatFilteredTransaction(Transaction transaction) {
+        String formattedTransaction = "[Date] " + transaction.date + " [From] " + transaction.from + " [To] :" +
                 transaction.to + " [For] " + transaction.narrative + " [Costing] " + transaction.amount;
 
-        return filteredAccountDetails;
+        return formattedTransaction;
     }
 
 }

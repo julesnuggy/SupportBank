@@ -9,7 +9,7 @@ public class ProcessTransactions {
 
         for (Transaction transaction : transactions)
             if (transaction.from.equals(accountName) || transaction.to.equals(accountName)) {
-                filteredAccountDetails.add(Formatter.formatFilteredAccounts(transaction));
+                filteredAccountDetails.add(Formatter.formatFilteredTransaction(transaction));
             }
 
         return filteredAccountDetails;

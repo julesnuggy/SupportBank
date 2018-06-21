@@ -33,7 +33,7 @@ public class TestFormatter {
         Date date = new SimpleDateFormat("dd/MM/yyyy").parse("01/01/14");
         Transaction transaction = new Transaction(date, "John D", "Jane D", "Doughnuts", BigDecimal.valueOf(5.0));
         String expectedFormatterTransaction = "[Date] Mon Jan 01 00:00:00 GMT 14 [From] John D [To] :Jane D [For] Doughnuts [Costing] 5.0";
-        String actualFormattedTransaction = Formatter.formatFilteredAccounts(transaction);
+        String actualFormattedTransaction = Formatter.formatFilteredTransaction(transaction);
         assertThat(actualFormattedTransaction ).isEqualTo(expectedFormatterTransaction);
 
     }
