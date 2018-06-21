@@ -45,13 +45,6 @@ public class TestDataConverter {
     }
 
     @Test
-    public void extractNamesReturnsArrayOfUniqueNames() {
-        Set<String> tempSet = dataConverter.extractNames(testTransactionsList);
-        assertThat(tempSet.size()).isEqualTo(2);
-        assertThat(tempSet).contains("John D", "Jane D");
-    }
-
-    @Test
     public void calculateBalanceReturnsTotalOwedPerPerson() {
         Set<String> setOfNames = new HashSet<>();
         setOfNames.add("John D");

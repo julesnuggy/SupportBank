@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+// Converts CSV transaction data to Transaction objects
 public class DataConverter {
     public static List<Transaction> extractTransactions(BufferedReader reader) throws IOException, ParseException {
         String transactionLine;
@@ -24,18 +25,6 @@ public class DataConverter {
             transactions.add(transaction);
         }
         return transactions;
-    }
-
-    public static Set<String> extractNames(List<Transaction> transactions) {
-        Set<String> accountNames = new HashSet<>();
-
-        for (int i = 0; i < transactions.size(); i++) {
-            for(Transaction transaction : transactions) {
-                accountNames.add(transaction.from);
-                accountNames.add(transaction.to);
-            }
-        }
-        return accountNames;
     }
 
     public static List<String> filterAccounts(List<Transaction> transactions, String accountName) {

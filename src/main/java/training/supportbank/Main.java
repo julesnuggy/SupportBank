@@ -15,7 +15,7 @@ public class Main {
         reader.readLine();
 
         List<Transaction> transactionsToPrint = dataConverter.extractTransactions(reader);
-        Set<String> namesToUse = dataConverter.extractNames(transactionsToPrint);
+        Set<String> namesToUse = Helper.extractNames(transactionsToPrint);
         Map<String, BigDecimal> namesAndSubtotals = dataConverter.calculateBalance(transactionsToPrint, namesToUse);
 
         Scanner scanner = new Scanner(System.in);
