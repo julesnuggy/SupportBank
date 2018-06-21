@@ -3,7 +3,7 @@ package training.supportbank;
 import java.math.BigDecimal;
 import java.util.*;
 
-public class PrinterFormatter {
+public class Formatter {
 
     public static String convertToCurrency(BigDecimal value, Locale locale) {
         String currencyValueString;
@@ -20,6 +20,13 @@ public class PrinterFormatter {
         });
 
         return uniqueNameSubtotalSentenceArray;
+    }
+
+    public static String formatFilteredAccounts(Transaction transaction) {
+        String filteredAccountDetails = "[Date] " + transaction.date + " [From] " + transaction.from + " [To] :" +
+                transaction.to + " [For] " + transaction.narrative + " [Costing] " + transaction.amount;
+
+        return filteredAccountDetails;
     }
 
 }

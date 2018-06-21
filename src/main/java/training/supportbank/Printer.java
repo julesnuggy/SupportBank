@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Printer {
     public static void listAll(Map<String, BigDecimal> listAllMap) {
-        List<String> listAllArray = PrinterFormatter.convertMapToSentence(listAllMap);
+        List<String> listAllArray = Formatter.convertMapToSentence(listAllMap);
         for(String element : listAllArray) {
             System.out.println(element);
         }

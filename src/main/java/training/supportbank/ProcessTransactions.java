@@ -5,15 +5,14 @@ import java.util.*;
 
 public class ProcessTransactions {
     public static List<String> filterAccounts(List<Transaction> transactions, String accountName) {
-        List<String> filteredAccounts = new ArrayList<>();
-        String filteredAccountDetails;
+        List<String> filteredAccountDetails = new ArrayList<>();
+
         for (Transaction transaction : transactions)
             if (transaction.from.equals(accountName) || transaction.to.equals(accountName)) {
-                filteredAccountDetails = "[Date] " + transaction.date + " [From] " + transaction.from +
-                        " [To] :" + transaction.to + " [For] " + transaction.narrative + " [Costing] " + transaction.amount;
-                filteredAccounts.add(filteredAccountDetails);
+                filteredAccountDetails.add(Formatter.formatFilteredAccounts(transaction));
             }
-        return filteredAccounts;
+
+        return filteredAccountDetails;
     }
 
     public static Map<String, BigDecimal> calculateBalances(List<Transaction> transactions, Set<String> accountNames) {
