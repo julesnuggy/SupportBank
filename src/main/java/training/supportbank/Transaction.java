@@ -10,11 +10,11 @@ public class Transaction {
     final String narrative;
     final BigDecimal amount;
 
-    public Transaction(Date tranDate, String tranFrom, String tranTo, String tranNarrative, BigDecimal tranAmount) {
-        this.date = tranDate;
-        this.from = tranFrom;
-        this.to = tranTo;
-        this.narrative = tranNarrative;
-        this.amount = tranAmount;
+    public Transaction(Date date, String from, String to, String narrative, BigDecimal amount) {
+        this.date = date;
+        this.from = from;
+        this.to = to;
+        this.narrative = narrative;
+        this.amount = amount;
     }
 }

@@ -60,10 +60,6 @@ public class DataHandler {
 
         for (String name : setOfNames) {
             BigDecimal currVal = BigDecimal.valueOf(0.00);
-//            BigDecimal sumTotal = transactions
-//                    .stream()
-//                    .filter(fromName -> )
-//                    .reduce(0, (a, b) -> a + b);
 
             for (int i = 0; i < transactions.size(); i++) {
                 if (transactions.get(i).from.equals(name)) {
