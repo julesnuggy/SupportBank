@@ -25,7 +25,6 @@ public class JsonParser {
         Gson gson = new GsonBuilder().registerTypeAdapter(Transaction.class, new TransactionAdaptor()).create();
         JsonReader reader = new JsonReader(new FileReader(filename));
         List<Transaction> transactions = gson.fromJson(reader, collectionType);
-        logger.info(transactions);
         return transactions;
     }
 }
