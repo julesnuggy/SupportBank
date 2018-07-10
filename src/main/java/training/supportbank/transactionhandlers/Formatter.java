@@ -26,7 +26,8 @@ public class Formatter {
 
     public static String formatFilteredTransaction(Transaction transaction) {
         String formattedTransaction = "[Date] " + transaction.getDate() + " [From] " + transaction.getFrom() + " [To] " +
-                transaction.getTo() + " [For] " + transaction.getNarrative() + " [Costing] " + transaction.getAmount();
+                transaction.getTo() + " [For] " + transaction.getNarrative() + " [Costing] " +
+                convertToCurrency(transaction.getAmount(), Locale.UK);
 
         return formattedTransaction;
     }

@@ -1,7 +1,6 @@
 package training.supportbank.userinterface;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import training.supportbank.customexceptions.UserInputException;
 import training.supportbank.dataconverters.CsvConverter;
 import training.supportbank.dataconverters.JsonParser;
 import training.supportbank.models.Transaction;
@@ -20,8 +19,8 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class UserInput {
-    private static final Logger logger = LogManager.getLogger("UserInput");
     private final Scanner scanner = new Scanner(System.in);
+    private static Set<String> accountNames;
 
     public String fileSelection() {
         System.out.println("Which transactions file would you like to analyse?" +
@@ -41,22 +40,27 @@ public class UserInput {
     }
 
     public List<Transaction> generateTransactions(String filename) throws IOException {
-        if(filename.endsWith(".csv")) {
-            return extractCsvTransactions(filename);
-        } else if (filename.endsWith(".json")) {
-            return extractJsonTransactions(filename);
-        } else {
-            return null;
+        try {
+            if (filename.endsWith(".csv")) {
+                return extractCsvTransactions(filename);
+            } else if (filename.endsWith(".json")) {
+                return extractJsonTransactions(filename);
+            } else {
+                throw new UserInputException(filename + "is not valid a file for this programme.\nRemember to include the file extension.");
+            }
+        } catch (FileNotFoundException e) {
+            throw new UserInputException(filename + "is not valid a file for this programme.\nCheck the filename.");
         }
     }
 
     public void listAll(List<Transaction> transactions) {
-        Set<String> accountNames = ExtractNames.getUniqueNames(transactions);
+        accountNames = ExtractNames.getUniqueNames(transactions);
         Map<String, BigDecimal> accountBalances = ProcessTransactions.calculateBalances(transactions, accountNames);
         Printer.listAll(accountBalances);
     }
 
     public void listAccount(List<Transaction> transactions) {
+        accountNames = ExtractNames.getUniqueNames(transactions);
         String accountName = accountSelection();
         List<String> filteredAccountsToPrint = ProcessTransactions.filterAccounts(transactions, accountName);
         Printer.listAccount(filteredAccountsToPrint, accountName);
@@ -77,6 +81,10 @@ public class UserInput {
         System.out.print("Enter the full name of the person whose transactions you wish to view: ");
         String accountName = scanner.next();
         accountName += scanner.nextLine();
-        return accountName;
+        if(accountNames.contains(accountName)) {
+            return accountName;
+        } else {
+            throw new UserInputException("Invalid account name entered.\nPlease check the list of names for this transaction file.");
+        }
     }
 }
