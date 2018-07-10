@@ -1,8 +1,15 @@
-package training.supportbank.userinterfaces;
+package training.supportbank.userinterface;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import training.supportbank.dataconverters.CsvConverter;
+import training.supportbank.dataconverters.JsonParser;
+import training.supportbank.models.Transaction;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class UserInput {
@@ -31,5 +38,18 @@ public class UserInput {
         String accountName = scanner.next();
         accountName += scanner.nextLine();
         return accountName;
+    }
+
+    public List<Transaction> generateTransactions(String filename) throws IOException {
+        if(filename.endsWith(".csv")) {
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            reader.readLine();
+            return CsvConverter.extractTransactions(reader);
+        } else if (filename.endsWith(".json")) {
+            JsonParser jsonParser = new JsonParser();
+            return jsonParser.parseJsonToTransactions(filename);
+        } else {
+            return null;
+        }
     }
 }

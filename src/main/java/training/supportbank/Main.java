@@ -2,40 +2,31 @@ package training.supportbank;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import training.supportbank.dataconverters.CsvConverter;
-import training.supportbank.dataconverters.JsonParser;
 import training.supportbank.models.Transaction;
 import training.supportbank.transactionhandlers.ExtractNames;
 import training.supportbank.transactionhandlers.Printer;
 import training.supportbank.transactionhandlers.ProcessTransactions;
-import training.supportbank.userinterfaces.UserInput;
+import training.supportbank.userinterface.UserInput;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Main {
     private static final Logger logger = LogManager.getLogger();
 
-    public static void main(String args[]) throws IOException, ParseException {
+    public static void main(String args[]) throws IOException {
         logger.info("App started");
 
         UserInput userInput = new UserInput();
         String filename = userInput.fileSelection();
-
-        BufferedReader reader = new BufferedReader(new FileReader(filename));
-        reader.readLine();
-
-        List<Transaction> transactions = CsvConverter.extractTransactions(reader);
+        List<Transaction> transactions = userInput.generateTransactions(filename);
+        logger.info("Assessing " + transactions.size() + " transactions for " + filename);
 
         Set<String> accountNames = ExtractNames.getUniqueNames(transactions);
         Map<String, BigDecimal> accountBalances = ProcessTransactions.calculateBalances(transactions, accountNames);
-
-        JsonParser jsonParser = new JsonParser();
-        List<Transaction> jsonTransactions = jsonParser.parseJsonToTransactions("Transactions2013.json");
 
         String operation = userInput.operationSelection(filename);
 
