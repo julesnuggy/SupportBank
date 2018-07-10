@@ -1,4 +1,4 @@
-package training.supportbank;
+package training.supportbank.transactionhandlers;
 
 import java.math.BigDecimal;
 import java.util.List;

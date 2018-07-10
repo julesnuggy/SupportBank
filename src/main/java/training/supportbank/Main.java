@@ -1,39 +1,32 @@
 package training.supportbank;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import training.supportbank.models.Transaction;
+import training.supportbank.userinterface.UserInput;
+
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.text.ParseException;
-import java.util.*;
+import java.util.List;
 
 public class Main {
-    public static void main(String args[]) throws IOException, ParseException {
-        String csvFile = "Transactions2014.csv";
-        BufferedReader reader = new BufferedReader(new FileReader(csvFile));
-        reader.readLine();
+    private static final Logger logger = LogManager.getLogger();
 
-        List<Transaction> transactions = DataConverter.extractTransactions(reader);
-        Set<String> accountNames = Helper.extractNames(transactions);
-        Map<String, BigDecimal> accountBalances = ProcessTransactions.calculateBalances(transactions, accountNames);
+    public static void main(String args[]) throws IOException {
+        logger.info("App started");
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("This programme allows you to view processed data for the Transaction2014.csv file.\n" +
-                "ListAll - outputs each persons name and the total they owe or are owed\n" +
-                "ListAccount - outputs every transaction associated with the given name\n" +
-                "Please enter your desired operation: ");
-        String operation = scanner.next();
+        UserInput userInput = new UserInput();
+        String filename = userInput.fileSelection();
+        List<Transaction> transactions = userInput.generateTransactions(filename);
+        logger.info("Assessing " + transactions.size() + " transactions for " + filename);
+
+        String operation = userInput.operationSelection(filename);
 
         if (operation.equals("ListAll")) {
-            Printer.listAll(accountBalances);
+            userInput.listAll(transactions);
         } else if (operation.equals("ListAccount")) {
-            System.out.print("Enter the full name of the person whose transactions you wish to view: ");
-            String accountName = scanner.next();
-            accountName += scanner.nextLine();
-            List<String> filteredAccountsToPrint = ProcessTransactions.filterAccounts(transactions, accountName);
-            Printer.listAccount(filteredAccountsToPrint, accountName);
+            userInput.listAccount(transactions);
         } else {
-            System.out.print("Invalid input");
+            logger.debug("You have entered an invalid operation.");
         }
 
     }

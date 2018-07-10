@@ -1,4 +1,6 @@
-package training.supportbank;
+package training.supportbank.transactionhandlers;
+
+import training.supportbank.models.Transaction;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -8,7 +10,7 @@ public class ProcessTransactions {
         List<String> filteredAccountDetails = new ArrayList<>();
 
         for (Transaction transaction : transactions)
-            if (transaction.from.equals(accountName) || transaction.to.equals(accountName)) {
+            if (transaction.getFrom().equals(accountName) || transaction.getTo().equals(accountName)) {
                 filteredAccountDetails.add(Formatter.formatFilteredTransaction(transaction));
             }
 
@@ -22,12 +24,13 @@ public class ProcessTransactions {
             BigDecimal currentValue = BigDecimal.valueOf(0.00);
 
             for(Transaction transaction : transactions) {
-                if (transaction.from.equals(name)) {
-                    currentValue = currentValue.add(transaction.amount);
-                } else if (transaction.to.equals(name)) {
-                    currentValue = currentValue.subtract(transaction.amount);
+                if (transaction.getFrom().equals(name)) {
+                    currentValue = currentValue.add(transaction.getAmount());
+                    accountBalances.put(name, currentValue);
+                } else if (transaction.getTo().equals(name)) {
+                    currentValue = currentValue.subtract(transaction.getAmount());
+                    accountBalances.put(name, currentValue);
                 }
-                accountBalances.put(name, currentValue);
             }
         }
         return accountBalances;

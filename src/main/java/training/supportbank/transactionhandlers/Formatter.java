@@ -1,4 +1,6 @@
-package training.supportbank;
+package training.supportbank.transactionhandlers;
+
+import training.supportbank.models.Transaction;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -6,10 +8,10 @@ import java.util.*;
 public class Formatter {
 
     public static String convertToCurrency(BigDecimal value, Locale locale) {
-        String currencyValueString;
-        String outputCurrency = Currency.getInstance(locale).getSymbol(locale);
-        currencyValueString = outputCurrency + value.setScale(2).abs().toString();
-        return currencyValueString;
+        String currencyValue;
+        String localeCurrency = Currency.getInstance(locale).getSymbol(locale);
+        currencyValue = localeCurrency + value.setScale(2).abs().toString();
+        return currencyValue;
     }
 
     public static List<String> convertMapToSentence(Map<String, BigDecimal> uniqueNameSubtotalMap) {
@@ -23,8 +25,9 @@ public class Formatter {
     }
 
     public static String formatFilteredTransaction(Transaction transaction) {
-        String formattedTransaction = "[Date] " + transaction.date + " [From] " + transaction.from + " [To] :" +
-                transaction.to + " [For] " + transaction.narrative + " [Costing] " + transaction.amount;
+        String formattedTransaction = "[Date] " + transaction.getDate() + " [From] " + transaction.getFrom() + " [To] " +
+                transaction.getTo() + " [For] " + transaction.getNarrative() + " [Costing] " +
+                convertToCurrency(transaction.getAmount(), Locale.UK);
 
         return formattedTransaction;
     }
