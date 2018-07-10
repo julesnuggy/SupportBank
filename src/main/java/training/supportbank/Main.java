@@ -25,19 +25,14 @@ public class Main {
         List<Transaction> transactions = userInput.generateTransactions(filename);
         logger.info("Assessing " + transactions.size() + " transactions for " + filename);
 
-        Set<String> accountNames = ExtractNames.getUniqueNames(transactions);
-        Map<String, BigDecimal> accountBalances = ProcessTransactions.calculateBalances(transactions, accountNames);
-
         String operation = userInput.operationSelection(filename);
 
         if (operation.equals("ListAll")) {
-            Printer.listAll(accountBalances);
+            userInput.listAll(transactions);
         } else if (operation.equals("ListAccount")) {
-            String accountName = userInput.accountSelection();
-            List<String> filteredAccountsToPrint = ProcessTransactions.filterAccounts(transactions, accountName);
-            Printer.listAccount(filteredAccountsToPrint, accountName);
+            userInput.listAccount(transactions);
         } else {
-            System.out.print("Invalid input");
+            logger.debug("Invalid input");
         }
 
     }
