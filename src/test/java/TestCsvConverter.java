@@ -1,6 +1,6 @@
 import org.junit.Test;
 import org.mockito.Mockito;
-import training.supportbank.DataConverter;
+import training.supportbank.dataconverter.CsvConverter;
 import training.supportbank.Transaction;
 
 import java.io.BufferedReader;
@@ -14,10 +14,10 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TestDataConverter {
+public class TestCsvConverter {
     @Test
     public void dataConverterConvertsCsvToArrayOfMaps() throws IOException, ParseException {
-        DataConverter dataConverter = new DataConverter();
+        CsvConverter csvConverter = new CsvConverter();
         Transaction transaction;
         List<Transaction> testTransactionsList = new ArrayList<>();
 
@@ -30,7 +30,7 @@ public class TestDataConverter {
 
         BufferedReader testBufferedReader = Mockito.mock(BufferedReader.class);
         Mockito.when(testBufferedReader.readLine()).thenReturn("01/01/2014,John D,Jane D,Doughnuts,5.00", "01/01/2014,Jane D,John D,Coffee,2.00", null);
-        List<Transaction> actualDataConverterOutput = dataConverter.extractTransactions(testBufferedReader);
+        List<Transaction> actualDataConverterOutput = csvConverter.extractTransactions(testBufferedReader);
         assertThat(actualDataConverterOutput)
                 .hasSameClassAs(testTransactionsList)
                 .hasSameSizeAs(testTransactionsList);

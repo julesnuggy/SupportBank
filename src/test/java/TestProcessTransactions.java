@@ -46,8 +46,8 @@ public class TestProcessTransactions {
     @Test
     public void filterAccountsReturnsDesiredTransactions() throws ParseException {
         List<String> expectedFilteredAccounts = new ArrayList<>();
-        expectedFilteredAccounts.add("[Date] 2014-01-01 [From] John D [To] :Jane D [For] Doughnuts [Costing] 5.0");
-        expectedFilteredAccounts.add("[Date] 2014-01-01 [From] Jane D [To] :John D [For] Coffee [Costing] 2.0");
+        expectedFilteredAccounts.add("[Date] 2014-01-01 [From] John D [To] Jane D [For] Doughnuts [Costing] 5.0");
+        expectedFilteredAccounts.add("[Date] 2014-01-01 [From] Jane D [To] John D [For] Coffee [Costing] 2.0");
 
         List<String> actualFilteredAccounts = processTransactions.filterAccounts(transactions, "John D");
         assertThat(actualFilteredAccounts).isEqualTo(expectedFilteredAccounts);

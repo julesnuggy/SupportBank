@@ -23,7 +23,7 @@ public class Formatter {
     }
 
     public static String formatFilteredTransaction(Transaction transaction) {
-        String formattedTransaction = "[Date] " + transaction.date + " [From] " + transaction.from + " [To] :" +
+        String formattedTransaction = "[Date] " + transaction.date + " [From] " + transaction.from + " [To] " +
                 transaction.to + " [For] " + transaction.narrative + " [Costing] " + transaction.amount;
 
         return formattedTransaction;

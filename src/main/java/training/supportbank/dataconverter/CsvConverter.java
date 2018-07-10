@@ -1,12 +1,12 @@
-package training.supportbank;
+package training.supportbank.dataconverter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import training.supportbank.Transaction;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Converts CSV transaction data to Transaction objects
-public class DataConverter {
+public class CsvConverter {
     private static final Logger logger = LogManager.getLogger();
 
-    public static List<Transaction> extractTransactions(BufferedReader reader) throws IOException, ParseException {
+    public static List<Transaction> extractTransactions(BufferedReader reader) throws IOException {
         String transactionLine;
         List<Transaction> transactions = new ArrayList<>();
 

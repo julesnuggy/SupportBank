@@ -2,6 +2,8 @@ package training.supportbank;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import training.supportbank.dataconverter.CsvConverter;
+import training.supportbank.dataconverter.JsonParser;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,9 +22,12 @@ public class Main {
         BufferedReader reader = new BufferedReader(new FileReader(csvFile));
         reader.readLine();
 
-        List<Transaction> transactions = DataConverter.extractTransactions(reader);
+        List<Transaction> transactions = CsvConverter.extractTransactions(reader);
         Set<String> accountNames = Helper.extractNames(transactions);
         Map<String, BigDecimal> accountBalances = ProcessTransactions.calculateBalances(transactions, accountNames);
+
+        JsonParser jsonParser = new JsonParser();
+        List<Transaction> jsonTransactions = jsonParser.parseJsonToTransactions("Transactions2013.json");
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("This programme allows you to view processed data for the " + csvFile + " file.\n" +

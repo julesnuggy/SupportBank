@@ -1,12 +1,15 @@
 package training.supportbank;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.math.BigDecimal;
-//import java.util.Date;
 import java.time.LocalDate;
 
 public class Transaction {
     final LocalDate date;
+    @SerializedName("fromAccount")
     final String from;
+    @SerializedName("toAccount")
     final String to;
     final String narrative;
     final BigDecimal amount;

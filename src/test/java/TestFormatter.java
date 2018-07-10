@@ -33,7 +33,7 @@ public class TestFormatter {
     public void formatFilteredAccountsFormatsTransactionObject() throws ParseException {
         LocalDate date = LocalDate.parse("01/01/2014", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         Transaction transaction = new Transaction(date, "John D", "Jane D", "Doughnuts", BigDecimal.valueOf(5.0));
-        String expectedFormatterTransaction = "[Date] 2014-01-01 [From] John D [To] :Jane D [For] Doughnuts [Costing] 5.0";
+        String expectedFormatterTransaction = "[Date] 2014-01-01 [From] John D [To] Jane D [For] Doughnuts [Costing] 5.0";
         String actualFormattedTransaction = Formatter.formatFilteredTransaction(transaction);
         assertThat(actualFormattedTransaction ).isEqualTo(expectedFormatterTransaction);
 
