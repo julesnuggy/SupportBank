@@ -24,10 +24,11 @@ public class ProcessTransactions {
             for(Transaction transaction : transactions) {
                 if (transaction.from.equals(name)) {
                     currentValue = currentValue.add(transaction.amount);
+                    accountBalances.put(name, currentValue);
                 } else if (transaction.to.equals(name)) {
                     currentValue = currentValue.subtract(transaction.amount);
+                    accountBalances.put(name, currentValue);
                 }
-                accountBalances.put(name, currentValue);
             }
         }
         return accountBalances;
