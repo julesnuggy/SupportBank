@@ -21,7 +21,7 @@ public class TestDataConverter {
         Transaction transaction;
         List<Transaction> testTransactionsList = new ArrayList<>();
 
-        LocalDate date = LocalDate.parse("01/01/14", DateTimeFormatter.ofPattern("dd/MM/yy"));
+        LocalDate date = LocalDate.parse("01/01/2014", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
         transaction = new Transaction(date, "John D", "Jane D", "Doughnuts", BigDecimal.valueOf(5.0));
         testTransactionsList.add(transaction);
@@ -29,7 +29,7 @@ public class TestDataConverter {
         testTransactionsList.add(transaction);
 
         BufferedReader testBufferedReader = Mockito.mock(BufferedReader.class);
-        Mockito.when(testBufferedReader.readLine()).thenReturn("01/01/14,John D,Jane D,Doughnuts,5.00", "01/01/14,Jane D,John D,Coffee,2.00", null);
+        Mockito.when(testBufferedReader.readLine()).thenReturn("01/01/2014,John D,Jane D,Doughnuts,5.00", "01/01/2014,Jane D,John D,Coffee,2.00", null);
         List<Transaction> actualDataConverterOutput = dataConverter.extractTransactions(testBufferedReader);
         assertThat(actualDataConverterOutput)
                 .hasSameClassAs(testTransactionsList)

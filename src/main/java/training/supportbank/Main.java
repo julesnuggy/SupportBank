@@ -1,5 +1,8 @@
 package training.supportbank;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,8 +11,12 @@ import java.text.ParseException;
 import java.util.*;
 
 public class Main {
+    private static final Logger logger = LogManager.getLogger();
+
     public static void main(String args[]) throws IOException, ParseException {
-        String csvFile = "Transactions2014.csv";
+        logger.info("App started");
+
+        String csvFile = "DodgyTransactions2015.csv";
         BufferedReader reader = new BufferedReader(new FileReader(csvFile));
         reader.readLine();
 

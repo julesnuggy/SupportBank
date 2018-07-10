@@ -18,7 +18,7 @@ public class TestProcessTransactions {
 
     @BeforeClass
     public static void createTransactions() throws ParseException {
-        LocalDate date = LocalDate.parse("01/01/14", DateTimeFormatter.ofPattern("dd/MM/yy"));
+        LocalDate date = LocalDate.parse("01/01/2014", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         transaction = new Transaction(date, "John D", "Jane D", "Doughnuts", BigDecimal.valueOf(5.0));
         transactions.add(transaction);
         transaction = new Transaction(date, "Jane D", "John D", "Coffee", BigDecimal.valueOf(2.0));

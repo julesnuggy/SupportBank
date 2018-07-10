@@ -18,7 +18,7 @@ public class TestHelper {
         Transaction testTransaction;
         List<Transaction> testTransactionsList = new ArrayList<>();
 
-        LocalDate tranDate = LocalDate.parse("01/01/14", DateTimeFormatter.ofPattern("dd/MM/yy"));
+        LocalDate tranDate = LocalDate.parse("01/01/2014", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
         testTransaction = new Transaction(tranDate, "John D", "Jane D", "Doughnuts", BigDecimal.valueOf(5.0));
         testTransactionsList.add(testTransaction);
