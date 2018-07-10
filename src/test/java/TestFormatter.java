@@ -4,10 +4,11 @@ import training.supportbank.Transaction;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestFormatter {
     @Test
@@ -30,9 +31,9 @@ public class TestFormatter {
 
     @Test
     public void formatFilteredAccountsFormatsTransactionObject() throws ParseException {
-        Date date = new SimpleDateFormat("dd/MM/yyyy").parse("01/01/14");
+        LocalDate date = LocalDate.parse("01/01/14", DateTimeFormatter.ofPattern("dd/MM/yy"));
         Transaction transaction = new Transaction(date, "John D", "Jane D", "Doughnuts", BigDecimal.valueOf(5.0));
-        String expectedFormatterTransaction = "[Date] Mon Jan 01 00:00:00 GMT 14 [From] John D [To] :Jane D [For] Doughnuts [Costing] 5.0";
+        String expectedFormatterTransaction = "[Date] 2014-01-01 [From] John D [To] :Jane D [For] Doughnuts [Costing] 5.0";
         String actualFormattedTransaction = Formatter.formatFilteredTransaction(transaction);
         assertThat(actualFormattedTransaction ).isEqualTo(expectedFormatterTransaction);
 

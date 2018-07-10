@@ -5,7 +5,8 @@ import training.supportbank.Transaction;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,7 +18,7 @@ public class TestProcessTransactions {
 
     @BeforeClass
     public static void createTransactions() throws ParseException {
-        Date date = new SimpleDateFormat("dd/MM/yyyy").parse("01/01/14");
+        LocalDate date = LocalDate.parse("01/01/14", DateTimeFormatter.ofPattern("dd/MM/yy"));
         transaction = new Transaction(date, "John D", "Jane D", "Doughnuts", BigDecimal.valueOf(5.0));
         transactions.add(transaction);
         transaction = new Transaction(date, "Jane D", "John D", "Coffee", BigDecimal.valueOf(2.0));
@@ -45,8 +46,8 @@ public class TestProcessTransactions {
     @Test
     public void filterAccountsReturnsDesiredTransactions() throws ParseException {
         List<String> expectedFilteredAccounts = new ArrayList<>();
-        expectedFilteredAccounts.add("[Date] Mon Jan 01 00:00:00 GMT 14 [From] John D [To] :Jane D [For] Doughnuts [Costing] 5.0");
-        expectedFilteredAccounts.add("[Date] Mon Jan 01 00:00:00 GMT 14 [From] Jane D [To] :John D [For] Coffee [Costing] 2.0");
+        expectedFilteredAccounts.add("[Date] 2014-01-01 [From] John D [To] :Jane D [For] Doughnuts [Costing] 5.0");
+        expectedFilteredAccounts.add("[Date] 2014-01-01 [From] Jane D [To] :John D [For] Coffee [Costing] 2.0");
 
         List<String> actualFilteredAccounts = processTransactions.filterAccounts(transactions, "John D");
         assertThat(actualFilteredAccounts).isEqualTo(expectedFilteredAccounts);

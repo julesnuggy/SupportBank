@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 // Converts CSV transaction data to Transaction objects
 public class DataConverter {
@@ -16,7 +18,7 @@ public class DataConverter {
         while ((transactionLine = reader.readLine()) != null) {
             String[] transactionProperties = transactionLine.split(",");
             String stringDate = transactionProperties[0].replace("\"", "");
-            Date date = new SimpleDateFormat("dd/MM/yyyy").parse(stringDate);
+            LocalDate date = LocalDate.parse(stringDate, DateTimeFormatter.ofPattern("dd/MM/yy"));
             String from = transactionProperties[1];
             String to = transactionProperties[2];
             String narrative = transactionProperties[3];

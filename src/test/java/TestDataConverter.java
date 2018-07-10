@@ -7,10 +7,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestDataConverter {
     @Test
@@ -19,7 +21,8 @@ public class TestDataConverter {
         Transaction transaction;
         List<Transaction> testTransactionsList = new ArrayList<>();
 
-        Date date = new SimpleDateFormat("dd/MM/yyyy").parse("01/01/14");
+        LocalDate date = LocalDate.parse("01/01/14", DateTimeFormatter.ofPattern("dd/MM/yy"));
+
         transaction = new Transaction(date, "John D", "Jane D", "Doughnuts", BigDecimal.valueOf(5.0));
         testTransactionsList.add(transaction);
         transaction = new Transaction(date, "Jane D", "John D", "Coffee", BigDecimal.valueOf(2.0));

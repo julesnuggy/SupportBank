@@ -30,11 +30,11 @@ public class TestPrinter {
     @Test
     public void listAccountPrintsToConsole() {
         List<String> testInput = new ArrayList<>();
-        testInput.add("[Date] Mon Jan 01 00:00:00 GMT 14 [From] John D [To] :Jane D [For] Doughnuts [Costing] 5.0");
-        testInput.add("[Date] Mon Jan 01 00:00:00 GMT 14 [From] Jane D [To] :John D [For] Coffee [Costing] 2.0");
+        testInput.add("[Date] 2014-01-01 [From] John D [To] :Jane D [For] Doughnuts [Costing] 5.0");
+        testInput.add("[Date] 2014-01-01 [From] Jane D [To] :John D [For] Coffee [Costing] 2.0");
 
-        String expectedOutput = "[Date] Mon Jan 01 00:00:00 GMT 14 [From] John D [To] :Jane D [For] Doughnuts [Costing] 5.0\n" +
-            "[Date] Mon Jan 01 00:00:00 GMT 14 [From] Jane D [To] :John D [For] Coffee [Costing] 2.0";
+        String expectedOutput = "[Date] 2014-01-01 [From] John D [To] :Jane D [For] Doughnuts [Costing] 5.0\n" +
+            "[Date] 2014-01-01 [From] Jane D [To] :John D [For] Coffee [Costing] 2.0";
 
         Printer.listAccount(testInput, "John D");
         assertThat(systemOutRule.getLog()).isEqualToIgnoringNewLines(expectedOutput);
