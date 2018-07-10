@@ -1,6 +1,6 @@
 import org.junit.Test;
-import training.supportbank.Helper;
-import training.supportbank.Transaction;
+import training.supportbank.ExtractNames;
+import training.supportbank.models.Transaction;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -12,7 +12,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TestHelper {
+public class TestExtractNames {
     @Test
     public void extractNamesReturnsArrayOfUniqueNames() throws ParseException {
         Transaction testTransaction;
@@ -25,7 +25,7 @@ public class TestHelper {
         testTransaction = new Transaction(tranDate, "Jane D", "John D", "Coffee", BigDecimal.valueOf(2.0));
         testTransactionsList.add(testTransaction);
 
-        Set<String> tempSet = Helper.extractNames(testTransactionsList);
+        Set<String> tempSet = ExtractNames.getUniqueNames(testTransactionsList);
         assertThat(tempSet.size()).isEqualTo(2);
         assertThat(tempSet).contains("John D", "Jane D");
     }

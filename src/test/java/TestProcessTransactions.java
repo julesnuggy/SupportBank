@@ -1,7 +1,7 @@
 import org.junit.BeforeClass;
 import org.junit.Test;
 import training.supportbank.ProcessTransactions;
-import training.supportbank.Transaction;
+import training.supportbank.models.Transaction;
 
 import java.math.BigDecimal;
 import java.text.ParseException;

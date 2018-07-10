@@ -1,7 +1,7 @@
 import org.junit.Test;
 import org.mockito.Mockito;
-import training.supportbank.dataconverter.CsvConverter;
-import training.supportbank.Transaction;
+import training.supportbank.dataconverters.CsvConverter;
+import training.supportbank.models.Transaction;
 
 import java.io.BufferedReader;
 import java.io.IOException;

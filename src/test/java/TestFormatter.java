@@ -1,6 +1,6 @@
 import org.junit.Test;
 import training.supportbank.Formatter;
-import training.supportbank.Transaction;
+import training.supportbank.models.Transaction;
 
 import java.math.BigDecimal;
 import java.text.ParseException;

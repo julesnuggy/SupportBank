@@ -2,8 +2,9 @@ package training.supportbank;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import training.supportbank.dataconverter.CsvConverter;
-import training.supportbank.dataconverter.JsonParser;
+import training.supportbank.dataconverters.CsvConverter;
+import training.supportbank.dataconverters.JsonParser;
+import training.supportbank.models.Transaction;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -23,7 +24,7 @@ public class Main {
         reader.readLine();
 
         List<Transaction> transactions = CsvConverter.extractTransactions(reader);
-        Set<String> accountNames = Helper.extractNames(transactions);
+        Set<String> accountNames = ExtractNames.getUniqueNames(transactions);
         Map<String, BigDecimal> accountBalances = ProcessTransactions.calculateBalances(transactions, accountNames);
 
         JsonParser jsonParser = new JsonParser();

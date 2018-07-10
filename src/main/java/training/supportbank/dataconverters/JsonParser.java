@@ -1,4 +1,4 @@
-package training.supportbank.dataconverter;
+package training.supportbank.dataconverters;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,7 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import training.supportbank.Transaction;
+import training.supportbank.models.Transaction;
 import training.supportbank.adaptors.TransactionAdaptor;
 
 import java.io.FileNotFoundException;

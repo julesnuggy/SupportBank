@@ -1,7 +1,7 @@
 package training.supportbank.adaptors;
 
 import com.google.gson.*;
-import training.supportbank.Transaction;
+import training.supportbank.models.Transaction;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;

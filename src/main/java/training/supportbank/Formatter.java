@@ -1,5 +1,7 @@
 package training.supportbank;
 
+import training.supportbank.models.Transaction;
+
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -23,8 +25,8 @@ public class Formatter {
     }
 
     public static String formatFilteredTransaction(Transaction transaction) {
-        String formattedTransaction = "[Date] " + transaction.date + " [From] " + transaction.from + " [To] " +
-                transaction.to + " [For] " + transaction.narrative + " [Costing] " + transaction.amount;
+        String formattedTransaction = "[Date] " + transaction.getDate() + " [From] " + transaction.getFrom() + " [To] " +
+                transaction.getTo() + " [For] " + transaction.getNarrative() + " [Costing] " + transaction.getAmount();
 
         return formattedTransaction;
     }
