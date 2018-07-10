@@ -6,10 +6,10 @@ import java.util.*;
 public class Formatter {
 
     public static String convertToCurrency(BigDecimal value, Locale locale) {
-        String currencyValueString;
-        String outputCurrency = Currency.getInstance(locale).getSymbol(locale);
-        currencyValueString = outputCurrency + value.setScale(2).abs().toString();
-        return currencyValueString;
+        String currencyValue;
+        String localeCurrency = Currency.getInstance(locale).getSymbol(locale);
+        currencyValue = localeCurrency + value.setScale(2).abs().toString();
+        return currencyValue;
     }
 
     public static List<String> convertMapToSentence(Map<String, BigDecimal> uniqueNameSubtotalMap) {

@@ -33,7 +33,7 @@ public class DataConverter {
                 Transaction transaction = new Transaction(date, from, to, narrative, amount);
                 transactions.add(transaction);
             } catch (NumberFormatException | DateTimeParseException e) {
-                logger.error(e.getMessage());
+                logger.error(e.getMessage() + "\nTransaction omitted from calculation: " + transactionLine + "\n");
             }
         }
         return transactions;

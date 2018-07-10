@@ -25,7 +25,7 @@ public class Main {
         Map<String, BigDecimal> accountBalances = ProcessTransactions.calculateBalances(transactions, accountNames);
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("This programme allows you to view processed data for the Transaction2014.csv file.\n" +
+        System.out.print("This programme allows you to view processed data for the " + csvFile + " file.\n" +
                 "ListAll - outputs each persons name and the total they owe or are owed\n" +
                 "ListAccount - outputs every transaction associated with the given name\n" +
                 "Please enter your desired operation: ");
