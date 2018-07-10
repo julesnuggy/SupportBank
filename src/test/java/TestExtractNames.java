@@ -1,5 +1,5 @@
 import org.junit.Test;
-import training.supportbank.ExtractNames;
+import training.supportbank.transactionhandlers.ExtractNames;
 import training.supportbank.models.Transaction;
 
 import java.math.BigDecimal;

@@ -5,6 +5,9 @@ import org.apache.logging.log4j.Logger;
 import training.supportbank.dataconverters.CsvConverter;
 import training.supportbank.dataconverters.JsonParser;
 import training.supportbank.models.Transaction;
+import training.supportbank.transactionhandlers.ExtractNames;
+import training.supportbank.transactionhandlers.Printer;
+import training.supportbank.transactionhandlers.ProcessTransactions;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

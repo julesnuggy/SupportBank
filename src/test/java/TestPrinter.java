@@ -1,7 +1,7 @@
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
-import training.supportbank.Printer;
+import training.supportbank.transactionhandlers.Printer;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

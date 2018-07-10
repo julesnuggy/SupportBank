@@ -1,5 +1,5 @@
 import org.junit.Test;
-import training.supportbank.Formatter;
+import training.supportbank.transactionhandlers.Formatter;
 import training.supportbank.models.Transaction;
 
 import java.math.BigDecimal;

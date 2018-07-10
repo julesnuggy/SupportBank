@@ -1,6 +1,6 @@
 import org.junit.BeforeClass;
 import org.junit.Test;
-import training.supportbank.ProcessTransactions;
+import training.supportbank.transactionhandlers.ProcessTransactions;
 import training.supportbank.models.Transaction;
 
 import java.math.BigDecimal;

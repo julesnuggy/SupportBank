@@ -1,4 +1,4 @@
-package training.supportbank;
+package training.supportbank.transactionhandlers;
 
 import training.supportbank.models.Transaction;
 
